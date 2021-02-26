@@ -49,10 +49,6 @@
   
 
   
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
-
-  
 
   
 
@@ -816,7 +812,7 @@
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
 
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -934,7 +930,7 @@
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>18 篇</div>
+          <div>19 篇</div>
         </div>
       
 
@@ -978,8 +974,8 @@
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Wed Feb 24 2021 17:28:46 GMT+0800 (中国标准时间)</div>
-            <div id="last-update-show">2021-02-24 日</div>
+            <div id="last-update" style="display: none;">Fri Feb 26 2021 23:10:42 GMT+0800 (中国标准时间)</div>
+            <div id="last-update-show">2021-02-26 日</div>
           
         </div>
         
@@ -1029,7 +1025,7 @@
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-02-24 日';
+            document.getElementById('last-update-show').innerHTML = '2021-02-26 日';
           }
         </script>
         
@@ -1393,23 +1389,6 @@ ip数据:46-1500ip头部字节数:2016位标识位：用于标识分段，分片
 
 
 
-   <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
-<script type="text/javascript">
-  function pjax_scrollrebeal() {
-    ScrollReveal().reveal('.l_main .reveal', {
-      distance: '32px',
-      duration: '800',
-      interval: '20',
-      scale: '1',
-      easing: 'ease-out'
-    });
-  }
-  $(function () {
-    pjax_scrollrebeal();
-  });
-</script>
-
-
 
 
 
@@ -1595,21 +1574,6 @@ valine.Q('*').limit(7).find().then(function (comments) {
 
 
 
-  
-<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
-
-  <script type="text/javascript">
-    $(function () {
-      Waves.attach('.flat-btn', ['waves-button']);
-      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
-      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
-      Waves.attach('.flat-box', ['waves-block']);
-      Waves.attach('.float-box', ['waves-block', 'waves-float']);
-      Waves.attach('.waves-image');
-      Waves.init();
-    });
-  </script>
-
 
 
   
@@ -1720,7 +1684,7 @@ valine.Q('*').limit(7).find().then(function (comments) {
       // 请求 PV 并自增
       var pvCtn = document.querySelector('#lc-sv');
       if (pvCtn || enableIncr) {
-        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+        var pvGetter = this.getRecord(Counter, 'http://xiaohublog.cn' + '/#lc-sv', 'Visits').then((record) => {
           incrArr.push(this.buildIncrement(record.objectId))
           var eles = document.querySelectorAll('#lc-sv #number');
           if (eles.length > 0) {
@@ -1738,7 +1702,7 @@ valine.Q('*').limit(7).find().then(function (comments) {
       // 请求 UV 并自增
       var uvCtn = document.querySelector('#lc-uv');
       if (uvCtn || enableIncr) {
-        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+        var uvGetter = this.getRecord(Counter, 'http://xiaohublog.cn' + '/#lc-uv', 'Visitors').then((record) => {
           var vuv = this.validUV();
           vuv && incrArr.push(this.buildIncrement(record.objectId))
           var eles = document.querySelectorAll('#lc-uv #number');
@@ -1760,7 +1724,7 @@ valine.Q('*').limit(7).find().then(function (comments) {
         for (i = 0; i < allPV.length; i++) {
           let pv = allPV[i];
           let title = pv.getAttribute('data-title');
-          var url = 'http://example.com' + pv.getAttribute('data-path');
+          var url = 'http://xiaohublog.cn' + pv.getAttribute('data-path');
           if (url) {
             var viewGetter = this.getRecord(Counter, url, title).then((record) => {
               // 是当前页面就自增
@@ -1948,8 +1912,6 @@ valine.Q('*').limit(7).find().then(function (comments) {
           hljs.highlightBlock(block);
         });
         
-        
-          pjax_scrollrebeal();
         
         
           if (typeof IssuesAPI == "undefined") {
