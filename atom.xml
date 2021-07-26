@@ -6,7 +6,7 @@
   <link href="http://xiaohublog.cn/atom.xml" rel="self"/>
   
   <link href="http://xiaohublog.cn/"/>
-  <updated>2021-04-03T13:58:27.627Z</updated>
+  <updated>2021-07-26T15:46:06.481Z</updated>
   <id>http://xiaohublog.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>信息收集网站工具总结</title>
+    <link href="http://xiaohublog.cn/2021/07/22/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E7%BD%91%E7%AB%99%E5%B7%A5%E5%85%B7/"/>
+    <id>http://xiaohublog.cn/2021/07/22/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E7%BD%91%E7%AB%99%E5%B7%A5%E5%85%B7/</id>
+    <published>2021-07-22T14:10:01.000Z</published>
+    <updated>2021-07-26T15:46:06.481Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="信息收集子域名查询"><a href="#信息收集子域名查询" class="headerlink" title="信息收集子域名查询"></a>信息收集子域名查询</h3><p>Layer子域名挖掘机<br>Site百度语法<br>crt.sh<br><a href="https://ruo.me/">https://ruo.me/</a><br><a href="https://tool.chinaz.com/">https://tool.chinaz.com/</a><br><a href="https://securitytrails.com/domain">https://securitytrails.com/domain</a><br>teemo子域名收集：<a href="https://github.com/bit4woo/teemo">https://github.com/bit4woo/teemo</a></p><p>在线CMS识别：<a href="http://whatweb.bugscaner.com/look/">http://whatweb.bugscaner.com/look/</a><br>通过特殊文件MD5值得到相应CMS</p><h3 id="cdn绕过"><a href="#cdn绕过" class="headerlink" title="cdn绕过"></a>cdn绕过</h3><p>CDN历史记录：x.threatbook.cn<br>历史cdn解析记录：<a href="https://securitytrails.com/domain/www.baidu.com/history/a">https://securitytrails.com/domain/www.baidu.com/history/a</a><br>子域名查询工具：<a href="https://seuritytrails.com/list/apex_domain/caredaily.com">https://seuritytrails.com/list/apex_domain/caredaily.com</a><br>查网址cdn ：dnsdb.io<br>查网址cdn，子域名：crt.sh<br>GOBUSTER - 目录/文件和DNS爆破工具：<a href="https://github.com/OJ/gobuster">https://github.com/OJ/gobuster</a></p><h3 id="IP信息"><a href="#IP信息" class="headerlink" title="IP信息"></a>IP信息</h3><p>Shodan：<a href="https://www.shodan.io/">https://www.shodan.io/</a><br>zoomeye ：<a href="https://www.zoomeye.org/">https://www.zoomeye.org/</a><br>fofa ：<a href="https://fofa.so/">https://fofa.so/</a><br>扫描网站：<a href="https://www.webscan.cc/">https://www.webscan.cc/</a><br>超级ping ：<a href="http://ping.chinaz.com/">http://ping.chinaz.com/</a><br>第三方查真实ip ：get-site-ip.com<br>国外ping（找真实IP）：tools.ipip.net/cdn.php</p><p>WAF探测<br>Wafw00f</p><h3 id="gps定位IP"><a href="#gps定位IP" class="headerlink" title="gps定位IP"></a>gps定位IP</h3><p>opengps.cn<br><a href="https://www.ipplus360.com/search/ip">https://www.ipplus360.com/search/ip</a><br><a href="https://www.chaipip.com/----%E6%9C%89%E4%B8%B6%E5%87%86">https://www.chaipip.com/----有丶准</a></p><p>WEB漏洞<br>XSS漏洞<br>xsssh.cn xss<br>自定义发包工具：postman<br>beef</p><p>SQL注入<br>sqlmap</p><p>目录遍历漏洞<br>7kWebPathBrute</p><p>文件上传漏洞<br>文件读取漏洞<br>WebShell<br>各种后门代码：github.com/tennc/webshell</p><p>XXE<br>xxeinjector</p><p>加密解密<br>cmd5.com<br>somd5.com<br>查询带salt密文时：使用 密文:盐 的格式进行查询<br>JWT：jwt.io</p><p>口令爆破字典<br>github.com/huyuanzhi2/password_brute_dictionary<br>字典文件：<a href="https://github.com/TheKingOfDuck/fuzzDicts">https://github.com/TheKingOfDuck/fuzzDicts</a></p><p>其他工具<br>server酱微信推送：sc.ftqq.com<br>忍者安全测试系统<br>kali<br>tg</p><p>漏洞平台<br>exploit-db：<a href="https://www.exploit-db.com/">https://www.exploit-db.com/</a><br>1337today：<a href="https://fr.0day.today/">https://fr.0day.today/</a><br>seebug：<a href="https://www.seebug.org/">https://www.seebug.org/</a><br>cnvd：<a href="https://www.cnvd.org.cn/">https://www.cnvd.org.cn/</a></p><p>靶场平台<br>补天src平台：<a href="http://www.butian.net/">www.butian.net</a><br>墨者学院：<a href="https://www.mozhe.cn/">https://www.mozhe.cn</a><br>漏洞盒子：<a href="https://www.vulbox.com/">https://www.vulbox.com/</a><br>攻防世界：<a href="https://adworld.xctf.org.cn/">https://adworld.xctf.org.cn/</a><br>i春秋：<a href="https://www.ichunqiu.com/">https://www.ichunqiu.com/</a><br>buuctf：<a href="https://buuoj.cn/">https://buuoj.cn/</a></p><p>CTFHUB：<br><a href="https://ctf.bugku.com/challenges">https://ctf.bugku.com/challenges</a><br>pikachu、dvwa、webgoat<br>sql注入靶场：sqlilabs<br>线上sql靶场：<a href="https://redtiger.labs.overthewire.org/">https://redtiger.labs.overthewire.org/</a><br>文件上传（包含）靶场：uploadlabs<br>XSS漏洞靶场：xsslabs<br>XXE漏洞靶场：xxelabs<br>中间件靶场：vulhub<br>更加真实靶场：vulnhub<br>java反序列化靶场：webgoat</p><p>社区<br>hei客街：<a href="https://www.hackjie.com/">https://www.hackjie.com/</a><br>圈子：<a href="https://www.secquan.org/Login?jump=aHR0cHM6Ly93d3cuc2VjcXVhbi5vcmc=">https://www.secquan.org/Login?jump=aHR0cHM6Ly93d3cuc2VjcXVhbi5vcmc=</a><br>freebuf<br>看雪<br>先知社区</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;信息收集子域名查询&quot;&gt;&lt;a href=&quot;#信息收集子域名查询&quot; class=&quot;headerlink&quot; title=&quot;信息收集子域名查询&quot;&gt;&lt;/a&gt;信息收集子域名查询&lt;/h3&gt;&lt;p&gt;Layer子域名挖掘机&lt;br&gt;Site百度语法&lt;br&gt;crt.sh&lt;br&gt;&lt;a hr</summary>
+      
+    
+    
+    
+    <category term="网络安全" scheme="http://xiaohublog.cn/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="安全" scheme="http://xiaohublog.cn/tags/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="信息收集" scheme="http://xiaohublog.cn/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"/>
+    
+  </entry>
   
   <entry>
     <title>Mysql常见面试题</title>
@@ -516,32 +542,6 @@
     <category term="算法入门" scheme="http://xiaohublog.cn/tags/%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8/"/>
     
     <category term="杭电OJ" scheme="http://xiaohublog.cn/tags/%E6%9D%AD%E7%94%B5OJ/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Collection和Iterator接口</title>
-    <link href="http://xiaohublog.cn/2018/11/10/Collection%E5%92%8CIterator%E6%8E%A5%E5%8F%A3/"/>
-    <id>http://xiaohublog.cn/2018/11/10/Collection%E5%92%8CIterator%E6%8E%A5%E5%8F%A3/</id>
-    <published>2018-11-10T12:56:40.000Z</published>
-    <updated>2021-01-22T04:26:32.334Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="深入学习Collection和Iterator接口"><a href="#深入学习Collection和Iterator接口" class="headerlink" title="深入学习Collection和Iterator接口"></a>深入学习Collection和Iterator接口</h1><h2 id="Collection接口"><a href="#Collection接口" class="headerlink" title="Collection接口"></a>Collection接口</h2><p>Collection接口是List,Set和Queue接口的父接口</p><ol><li>boolean add(Object o):该方法用于向集合里添加元素，如添加成功则返回true</li><li>boolean addAll(Collection c):把集合c中所有元素添加到指定集合中，如添加成功则返回true</li><li>void clear():清除集合中所有的元素，将集合长度变为0</li><li>boolean contains(Object o):返回集合内是否包含指定元素,如果是，则返回true</li><li>boolean containsAll(Collection c):返回集合是否包含集合c内所有元素，如果是，则返回true</li><li>boolean isEmpty():判断集合是否为空，如为空，则为true</li><li>Iterator iterator():返回一个iterator，用于遍历集合里的元素</li><li>boolean remove(Object o):删除集合中的o元素，如有多个，则全被删除</li><li>boolean removeAll(Collection c):删除集合c中包含的所有元素（相当于调用该方法的集合减去集合c），如删除一个或以上的元素，则返回true</li><li>boolean retain(Collection c):在指定集合删除集合c中没有的元素（相当与指定集合和集合c取交集），如果改操作改变了调用该方法的集合，则返回true</li><li>int size():返回集合里元素的个数</li><li>Object[] toArray():把集合转化为数组，所有集合元素转换为对应的数组元素<h2 id="Iterator接口"><a href="#Iterator接口" class="headerlink" title="Iterator接口"></a>Iterator接口</h2></li><li>boolean hasNext():如果被迭代的元素还没有被遍历，则返回true</li><li>Object next():返回集合里下一个元素</li><li>void remove():删除集合里上一次next返回的元素</li></ol><p><strong>Iterator必须依附于Collection对象。有一个Iterator对象，则必然有一个与之对应的对象。</strong><br><strong>当时用Iterator来迭代Colllection元素时，Collection里的元素不能被改变。</strong></p><p>使用Iterator遍历集合元素:</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestForeach</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建Collection对象</span></span><br><span class="line">        Collection books=<span class="keyword">new</span> HashSet();</span><br><span class="line">        books.add(<span class="keyword">new</span> String(<span class="string">&quot;java企业轻量级&quot;</span>));</span><br><span class="line">        books.add(<span class="keyword">new</span> String(<span class="string">&quot;人间失格&quot;</span>));</span><br><span class="line">        books.add(<span class="keyword">new</span> String(<span class="string">&quot;java入门到精通&quot;</span>));</span><br><span class="line">        Iterator it=books.iterator();   </span><br><span class="line">        <span class="keyword">while</span>(it.hasNext()) &#123;</span><br><span class="line">            String book=(String)it.next();</span><br><span class="line">            System.out.println(book);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>对比使用foreach遍历集合元素:</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestForeach</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建Collection对象</span></span><br><span class="line">        Collection books=<span class="keyword">new</span> HashSet();</span><br><span class="line">        books.add(<span class="keyword">new</span> String(<span class="string">&quot;java企业轻量级&quot;</span>));</span><br><span class="line">        books.add(<span class="keyword">new</span> String(<span class="string">&quot;人间失格&quot;</span>));</span><br><span class="line">        books.add(<span class="keyword">new</span> String(<span class="string">&quot;java入门到精通&quot;</span>));</span><br><span class="line">        Iterator it=books.iterator(); </span><br><span class="line">        <span class="keyword">for</span>(Object obj:books) &#123;</span><br><span class="line">            String book=(String)obj;</span><br><span class="line">            System.out.println(book);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;深入学习Collection和Iterator接口&quot;&gt;&lt;a href=&quot;#深入学习Collection和Iterator接口&quot; class=&quot;headerlink&quot; title=&quot;深入学习Collection和Iterator接口&quot;&gt;&lt;/a&gt;深入学习Collect</summary>
-      
-    
-    
-    
-    <category term="java" scheme="http://xiaohublog.cn/categories/java/"/>
-    
-    
-    <category term="日常学习" scheme="http://xiaohublog.cn/tags/%E6%97%A5%E5%B8%B8%E5%AD%A6%E4%B9%A0/"/>
-    
-    <category term="Collection和Iterator接口" scheme="http://xiaohublog.cn/tags/Collection%E5%92%8CIterator%E6%8E%A5%E5%8F%A3/"/>
     
   </entry>
   
